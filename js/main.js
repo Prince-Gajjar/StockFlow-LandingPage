@@ -1,0 +1,230 @@
+/* ============================================================
+   StockFlow Landing Page — Main JavaScript
+   ============================================================ */
+
+(function () {
+  "use strict";
+
+  // ---------- Check for reduced motion preference ----------
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // ---------- 1. IntersectionObserver for Scroll Reveal ----------
+  const revealElements = document.querySelectorAll(".reveal");
+
+  if (revealElements.length > 0 && !prefersReducedMotion) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Apply the stagger delay from inline style (if any)
+            const delay = entry.target.style.transitionDelay || "0ms";
+            const delayMs = parseInt(delay) || 0;
+            setTimeout(() => {
+              entry.target.classList.add("active");
+            }, delayMs);
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  } else if (prefersReducedMotion) {
+    // Show all elements immediately if user prefers reduced motion
+    revealElements.forEach((el) => el.classList.add("active"));
+  } else {
+    // Fallback: show everything
+    revealElements.forEach((el) => el.classList.add("active"));
+  }
+
+  // ---------- 2. Sticky Nav Frosted Transition ----------
+  const nav = document.getElementById("top-nav");
+  const navContainer = document.getElementById("nav-container");
+
+  function handleNavScroll() {
+    if (!nav || !navContainer) return;
+    if (window.scrollY > 80) {
+      navContainer.classList.add("glass", "shadow-xl", "px-10");
+      navContainer.classList.remove("bg-transparent");
+      nav.classList.add("py-2");
+    } else {
+      navContainer.classList.remove("glass", "shadow-xl", "px-10");
+      navContainer.classList.add("bg-transparent");
+      nav.classList.remove("py-2");
+    }
+  }
+
+  window.addEventListener("scroll", handleNavScroll, { passive: true });
+
+  // ---------- 3. Animated Counters ----------
+  const counterElements = document.querySelectorAll(".counter");
+
+  if (counterElements.length > 0) {
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            if (isNaN(target)) {
+              counterObserver.unobserve(el);
+              return;
+            }
+
+            let current = 0;
+            const duration = 1500;
+            const startTime = performance.now();
+
+            function updateCounter(now) {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              // Ease-out cubic
+              const easedProgress = 1 - Math.pow(1 - progress, 3);
+              el.innerText = Math.floor(easedProgress * target);
+              if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+              } else {
+                el.innerText = target;
+              }
+            }
+            requestAnimationFrame(updateCounter);
+            counterObserver.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counterElements.forEach((c) => counterObserver.observe(c));
+  }
+
+  // ---------- 4. SVG Timeline Path Draw ----------
+  const timelinePath = document.getElementById("timeline-path");
+  const timelineContainer = document.getElementById("timeline-container");
+
+  if (timelinePath && timelineContainer && !prefersReducedMotion) {
+    const length = timelinePath.getTotalLength();
+    timelinePath.style.strokeDasharray = length;
+    timelinePath.style.strokeDashoffset = length;
+
+    function drawTimeline() {
+      const rect = timelineContainer.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+      // Calculate how much of the container has passed the center of the screen
+      const start = rect.top - viewHeight / 2;
+      const scrollRange = rect.height;
+      let progress = -start / scrollRange;
+      progress = Math.max(0, Math.min(progress, 1));
+      timelinePath.style.strokeDashoffset = length - progress * length;
+    }
+
+    window.addEventListener("scroll", drawTimeline, { passive: true });
+    // Initial draw
+    drawTimeline();
+  } else if (timelinePath && prefersReducedMotion) {
+    // Show full path for reduced motion
+    const length = timelinePath.getTotalLength();
+    timelinePath.style.strokeDasharray = length;
+    timelinePath.style.strokeDashoffset = 0;
+  }
+
+  // ---------- 5. Mobile Hamburger Menu ----------
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuOverlay = document.getElementById("menu-overlay");
+  const menuIcon = document.getElementById("menu-icon");
+
+  function openMenu() {
+    if (!mobileMenu || !menuOverlay || !menuToggle) return;
+    mobileMenu.classList.add("open");
+    menuOverlay.classList.add("open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    if (menuIcon) menuIcon.textContent = "close";
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    if (!mobileMenu || !menuOverlay || !menuToggle) return;
+    mobileMenu.classList.remove("open");
+    menuOverlay.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    if (menuIcon) menuIcon.textContent = "menu";
+    document.body.style.overflow = "";
+  }
+
+  if (menuToggle && mobileMenu && menuOverlay) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.contains("open");
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Close on overlay click
+    menuOverlay.addEventListener("click", closeMenu);
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileMenu.classList.contains("open")) {
+        closeMenu();
+      }
+    });
+
+    // Close on any mobile menu link click
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+  }
+
+  // ---------- 6. Smooth Scroll for Anchor Links ----------
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      if (href === "#" || href === "") return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const navHeight = nav ? nav.offsetHeight : 80;
+        const targetPosition =
+          target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      }
+    });
+  });
+
+  // ---------- 7. Screenshot Card 3D Tilt Effect ----------
+  const screenshotCards = document.querySelectorAll(".screenshot-card");
+
+  screenshotCards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform =
+        "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+  });
+
+  // ---------- 8. Log that JS is loaded ----------
+  console.log(
+    "%c StockFlow %c Landing page loaded",
+    "background:#006d31;color:white;padding:4px 8px;border-radius:4px 0 0 4px;font-weight:bold",
+    "background:#2cb35b;color:white;padding:4px 8px;border-radius:0 4px 4px 0"
+  );
+})();

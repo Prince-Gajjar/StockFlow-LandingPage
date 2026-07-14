@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StockFlow — Operational Clarity Guaranteed | Inventory Management for Android</title>
+<meta name="description" content="High-performance real-time inventory tracking, intelligent inward wizards, and unbreakable audit trails—built specifically for Android. Download StockFlow today."/>
+<link rel="canonical" href="https://stockflow.vassuinfotech.com/"/>
+<meta name="theme-color" content="#006d31"/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://stockflow.vassuinfotech.com/"/>
+<meta property="og:title" content="StockFlow — Operational Clarity Guaranteed"/>
+<meta property="og:description" content="High-performance real-time inventory tracking, intelligent inward wizards, and unbreakable audit trails—built specifically for Android."/>
+<meta property="og:image" content="assets/images/og-image.png"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="StockFlow — Operational Clarity Guaranteed"/>
+<meta name="twitter:description" content="Inventory management that finally keeps up with your warehouse."/>
+<meta name="twitter:image" content="assets/images/og-image.png"/>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="logo.png"/>
+
+<!-- Google Fonts -->  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<!-- Tailwind CDN (see README for build alternatives) -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        error: "#ba1a1a",
+        "primary-container": "#2cb35b",
+        "surface-container-highest": "#dde5da",
+        outline: "#6d7b6d",
+        "primary-fixed": "#7dfc9a",
+        "on-primary-fixed": "#00210a",
+        "surface-container-high": "#e3eadf",
+        "surface-tint": "#006d31",
+        "primary-fixed-dim": "#5fdf81",
+        "on-surface-variant": "#3e4a3e",
+        "on-tertiary": "#ffffff",
+        "on-tertiary-fixed": "#400013",
+        "inverse-on-surface": "#ecf3e8",
+        "surface-container-low": "#eef6eb",
+        "on-primary-fixed-variant": "#005323",
+        "secondary-container": "#bcefc0",
+        tertiary: "#aa304d",
+        background: "#f4fcf0",
+        "error-container": "#ffdad6",
+        "surface-bright": "#f4fcf0",
+        "inverse-surface": "#2b322b",
+        "on-secondary-fixed-variant": "#23502d",
+        "on-primary": "#ffffff",
+        "on-surface": "#161d17",
+        surface: "#f4fcf0",
+        "tertiary-fixed": "#ffd9dd",
+        "on-secondary-container": "#416e49",
+        "surface-container-lowest": "#ffffff",
+        "on-background": "#161d17",
+        "secondary-fixed-dim": "#a1d3a5",
+        "inverse-primary": "#5fdf81",
+        "on-secondary": "#ffffff",
+        "on-primary-container": "#003d18",
+        "on-tertiary-container": "#6e0026",
+        "surface-container": "#e9f0e5",
+        "on-tertiary-fixed-variant": "#8a1637",
+        "surface-dim": "#d5dcd1",
+        "tertiary-fixed-dim": "#ffb2bc",
+        primary: "#006d31",
+        "on-error": "#ffffff",
+        "on-secondary-fixed": "#00210a",
+        "surface-variant": "#dde5da",
+        "outline-variant": "#bccaba",
+        "on-error-container": "#93000a",
+        secondary: "#3b6843",
+      },
+      borderRadius: {
+        DEFAULT: "0.5rem",
+        lg: "0.5rem",
+        xl: "0.75rem",
+        full: "9999px",
+      },
+      spacing: {
+        gutter: "24px",
+        "margin-mobile": "16px",
+        base: "4px",
+        "margin-desktop": "80px",
+        "section-gap": "120px",
+      },
+      fontFamily: {
+        "body-lg": ["Inter"],
+        "display-lg-mobile": ["Inter"],
+        "body-md": ["Inter"],
+        "headline-md": ["Inter"],
+        "label-sm": ["Inter"],
+        "display-lg": ["Inter"],
+      },
+      fontSize: {
+        "body-lg": [
+          "18px",
+          { lineHeight: "1.6", letterSpacing: "-0.01em", fontWeight: "500" },
+        ],
+        "display-lg-mobile": [
+          "40px",
+          { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" },
+        ],
+        "body-md": [
+          "16px",
+          { lineHeight: "1.5", letterSpacing: "0", fontWeight: "500" },
+        ],
+        "headline-md": [
+          "32px",
+          { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" },
+        ],
+        "label-sm": [
+          "12px",
+          { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" },
+        ],
+        "display-lg": [
+          "64px",
+          { lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "700" },
+        ],
+      },
+    },
+  },
+};
+</script>
+<link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+
+<!-- ==================== STICKY NAV ==================== -->
+<nav aria-label="Main navigation" class="fixed w-full top-0 z-[100] transition-all duration-500 py-4 px-margin-mobile md:px-margin-desktop" id="top-nav">
+  <div class="max-w-[1440px] mx-auto flex justify-between items-center bg-transparent rounded-full px-6 py-3 transition-all duration-500" id="nav-container">
+    <a class="flex items-center gap-2" href="/">
+      <img alt="StockFlow Logo" class="h-12 w-auto object-contain" src="logo.png"/>
+      <span class="font-display-lg text-headline-md tracking-tighter text-on-surface hidden sm:inline">StockFlow</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+      <a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4 rounded" href="#features">Features</a>
+      <a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4 rounded" href="#how-it-works">How It Works</a>
+      <a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4 rounded" href="#screenshots">Screenshots</a>
+      <a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4 rounded" href="#faq">FAQ</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-3 rounded-full font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-all active:scale-95 shadow-lg shadow-primary/20 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2" href="downloads/stockflow.apk" download>
+        Download App
+      </a>
+      <!-- Mobile Hamburger -->
+      <button aria-label="Toggle navigation menu" aria-expanded="false" class="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-surface-container-low border border-outline-variant/30 hover:bg-surface-container transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" id="menu-toggle" type="button">
+        <span class="material-symbols-outlined text-on-surface" id="menu-icon">menu</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu Panel -->
+<div aria-hidden="true" class="fixed inset-0 z-[99] bg-black/30 opacity-0 pointer-events-none transition-opacity duration-300" id="menu-overlay"></div>
+<div aria-label="Mobile navigation" class="fixed top-0 right-0 z-[99] h-full w-72 max-w-[80vw] bg-surface-container-low backdrop-blur-xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-out pt-24 px-6 pb-8 overflow-y-auto" id="mobile-menu" role="dialog">
+  <div class="flex flex-col gap-6">
+    <a class="text-on-surface font-headline-md text-xl hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="#features">Features</a>
+    <a class="text-on-surface font-headline-md text-xl hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="#how-it-works">How It Works</a>
+    <a class="text-on-surface font-headline-md text-xl hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="#screenshots">Screenshots</a>
+    <a class="text-on-surface font-headline-md text-xl hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="#faq">FAQ</a>
+    <hr class="border-outline-variant/40 my-2"/>
+    <a class="bg-primary text-on-primary px-6 py-4 rounded-full font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-all active:scale-95 text-center shadow-lg shadow-primary/20" href="downloads/stockflow.apk" download>Download App</a>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="relative pt-32 pb-24 md:pt-48 md:pb-section-gap overflow-hidden" aria-label="Hero">
+  <div class="warehouse-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-fixed/20 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute top-1/2 -right-24 w-96 h-96 bg-secondary-fixed/20 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop flex flex-col lg:flex-row items-center gap-16">
+    <div class="flex-1 space-y-8 reveal active text-center lg:text-left">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-container/10 border border-primary-container/20 text-primary font-label-sm text-label-sm">
+        <span class="relative flex h-2 w-2" aria-hidden="true">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+        </span>
+        Now on Android &middot; v1.0.0
+      </div>
+      <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-tight max-w-3xl">
+        Inventory management that finally keeps up with your <span class="text-primary italic">warehouse</span>
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+        High-performance real-time tracking, intelligent inward wizards, and unbreakable audit trails&mdash;built specifically for the Android devices your team already uses.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center lg:justify-start">
+        <a class="w-full sm:w-auto bg-primary text-on-primary px-8 py-5 rounded-full font-label-sm text-label-sm uppercase tracking-widest hover:bg-primary-container transition-all shadow-xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-95 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2" href="downloads/stockflow.apk" download>
+          <span class="material-symbols-outlined" aria-hidden="true">android</span>
+          Download for Android
+        </a>
+        <a class="w-full sm:w-auto border-2 border-outline/30 text-on-surface px-8 py-5 rounded-full font-label-sm text-label-sm uppercase tracking-widest hover:bg-surface-container transition-all flex items-center justify-center gap-2 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" href="#how-it-works">
+          See how it works
+        </a>
+      </div>
+      <!-- Download details + install note -->
+      <div class="flex flex-col items-center lg:items-start gap-3 pt-2">
+        <div class="text-label-sm text-on-surface-variant/70 uppercase tracking-wider">
+          v1.0.0 &bull; ~18 MB &bull; Android 8.0+ (minSdk 26)
+        </div>
+        <div class="flex items-start gap-2 max-w-md">
+          <span class="material-symbols-outlined text-sm text-on-surface-variant/50 mt-0.5" aria-hidden="true">info</span>
+          <p class="text-xs text-on-surface-variant/60 leading-relaxed">
+            Direct APK download &mdash; you may need to allow installs from unknown sources in your Android settings.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 relative reveal active" style="transition-delay: 200ms;">
+      <div class="animate-float relative z-10 mx-auto max-w-[320px]">
+        <div class="phone-frame bg-surface-container-lowest aspect-[9/19.5]">
+          <img alt="StockFlow inventory management dashboard running on Android" class="w-full h-full object-cover" src="assets/images/dashboard-mockup.png"/>
+        </div>
+        <div class="absolute -top-12 -right-8 glass p-4 rounded-xl shadow-lg border border-white/40 hidden md:block" aria-hidden="true">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary" data-weight="fill">check_circle</span>
+            </div>
+            <div>
+              <div class="text-on-surface font-bold text-xs uppercase tracking-tighter">Sync Success</div>
+              <div class="text-on-surface-variant text-[10px]">Audit trail updated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRUST STRIP ==================== -->
+<section class="py-16 bg-surface-container-low border-y border-outline-variant/30 overflow-hidden" aria-label="Key metrics">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="text-center reveal">
+      <div class="text-headline-md font-display-lg text-primary mb-1 counter" data-target="250" aria-label="250 milliseconds sync speed">0</div>
+      <div class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Sync Speed (ms)</div>
+    </div>
+    <div class="text-center reveal" style="transition-delay: 100ms;">
+      <div class="text-headline-md font-display-lg text-primary mb-1" aria-label="100 percent audit trail accuracy">100%</div>
+      <div class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Audit Trail Accuracy</div>
+    </div>
+    <div class="text-center reveal" style="transition-delay: 200ms;">
+      <div class="text-headline-md font-display-lg text-primary mb-1" aria-label="AES 256 bit encryption">AES-256</div>
+      <div class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">End-to-End Security</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES BENTO GRID ==================== -->
+<section class="py-section-gap" id="features" aria-label="Features">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">
+    <div class="text-center mb-20 space-y-4">
+      <h2 class="font-display-lg text-headline-md md:text-5xl text-on-surface">Precision at Every Layer</h2>
+      <p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto">Engineered to handle complex logistics with zero friction.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1: Inward Wizard -->
+      <article class="md:col-span-2 bg-surface-container-lowest p-8 rounded-3xl transition-all border border-outline-variant/30 reveal feature-card">
+        <div class="h-full flex flex-col justify-between gap-12">
+          <div class="flex justify-between items-start">
+            <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined text-4xl" data-weight="fill" aria-hidden="true">input</span>
+            </div>
+            <span class="px-4 py-1 bg-primary/5 text-primary text-label-sm font-label-sm rounded-full" aria-label="Feature tag: Automated">Automated</span>
+          </div>
+          <div>
+            <h3 class="text-headline-md font-headline-md mb-4">Inward Entry Wizard</h3>
+            <p class="text-body-md text-on-surface-variant max-w-lg">Streamline your procurement process with multi-step validation. Capture bulk shipments with barcode scanning in seconds.</p>
+          </div>
+        </div>
+      </article>
+      <!-- Card 2: Real-time Tracking -->
+      <article class="bg-primary text-on-primary p-8 rounded-3xl transition-all reveal feature-card" style="transition-delay: 100ms;">
+        <div class="h-full flex flex-col justify-between gap-12">
+          <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl" data-weight="fill" aria-hidden="true">radar</span>
+          </div>
+          <div>
+            <h3 class="text-headline-md font-headline-md mb-4">Real-Time Pulse</h3>
+            <p class="text-body-md text-white/80">Every adjustment is synced instantly across all devices. No more inventory lag.</p>
+          </div>
+        </div>
+      </article>
+      <!-- Card 3: Outward Sales -->
+      <article class="bg-surface-container p-8 rounded-3xl transition-all reveal feature-card" style="transition-delay: 200ms;">
+        <div class="h-full flex flex-col justify-between gap-12">
+          <div class="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary">
+            <span class="material-symbols-outlined text-4xl" data-weight="fill" aria-hidden="true">shopping_cart_checkout</span>
+          </div>
+          <div>
+            <h3 class="text-headline-md font-headline-md mb-4">Outward Sales</h3>
+            <p class="text-body-md text-on-surface-variant">Intelligent sales workflows that auto-deduct stock and trigger alerts.</p>
+          </div>
+        </div>
+      </article>
+      <!-- Card 4: Audit Log -->
+      <article class="md:col-span-2 bg-surface-container-lowest p-8 rounded-3xl transition-all border border-outline-variant/30 reveal feature-card" style="transition-delay: 300ms;">
+        <div class="h-full flex flex-col md:flex-row gap-8 items-center">
+          <div class="flex-1">
+            <h3 class="text-headline-md font-headline-md mb-4">Immutable Audit Trail</h3>
+            <p class="text-body-md text-on-surface-variant mb-6">See who moved what, when, and why. A comprehensive history log that guarantees accountability across your entire workforce.</p>
+            <div class="space-y-3" aria-label="Sample audit log entries">
+              <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/20">
+                <div class="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></div>
+                <span class="text-sm font-medium">Stock #492 Moved to Shelf B</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/20">
+                <div class="w-2 h-2 rounded-full bg-secondary" aria-hidden="true"></div>
+                <span class="text-sm font-medium">Sale #882 Processed - 12 Units</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-48 aspect-square rounded-2xl bg-secondary-container/30 flex items-center justify-center" aria-hidden="true">
+            <span class="material-symbols-outlined text-7xl text-secondary" data-weight="fill">history_edu</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOW IT WORKS TIMELINE ==================== -->
+<section class="py-section-gap bg-surface-container-low relative overflow-hidden" id="how-it-works" aria-label="How it works">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+    <div class="text-center mb-24">
+      <h2 class="font-display-lg text-headline-md md:text-5xl text-on-surface">The StockFlow Lifecycle</h2>
+      <p class="text-body-lg text-on-surface-variant">Seamless operational flow from intake to shipment.</p>
+    </div>
+    <div class="relative" id="timeline-container">
+      <!-- SVG Connector Line (Desktop) -->
+      <svg class="hidden lg:block absolute top-8 left-0 w-full h-1 overflow-visible" fill="none" preserveAspectRatio="none" viewBox="0 0 1000 1" aria-hidden="true">
+        <path d="M50 0.5H950" id="timeline-path" stroke="#006d31" stroke-dasharray="10 10" stroke-width="2" style="transition: stroke-dashoffset 0.1s linear;"></path>
+      </svg>
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 relative">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center reveal">
+          <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center text-2xl font-bold mb-6 relative z-20 shadow-lg" aria-hidden="true">1</div>
+          <h3 class="font-headline-md text-xl mb-2">Inward Entry</h3>
+          <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Scan and Validate</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay: 100ms;">
+          <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center text-2xl font-bold mb-6 relative z-20 shadow-lg" aria-hidden="true">2</div>
+          <h3 class="font-headline-md text-xl mb-2">Admin Review</h3>
+          <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Verify Stocks</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay: 200ms;">
+          <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center text-2xl font-bold mb-6 relative z-20 shadow-lg" aria-hidden="true">3</div>
+          <h3 class="font-headline-md text-xl mb-2">Auto Update</h3>
+          <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Cloud Ledger Sync</p>
+        </div>
+        <!-- Step 4 -->
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay: 300ms;">
+          <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center text-2xl font-bold mb-6 relative z-20 shadow-lg" aria-hidden="true">4</div>
+          <h3 class="font-headline-md text-xl mb-2">Outward Sale</h3>
+          <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Dispatch &amp; Deduct</p>
+        </div>
+        <!-- Step 5 -->
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay: 400ms;">
+          <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center text-2xl font-bold mb-6 relative z-20 shadow-lg" aria-hidden="true">5</div>
+          <h3 class="font-headline-md text-xl mb-2">Activity Log</h3>
+          <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Permanent Archive</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SCREENSHOTS CAROUSEL ==================== -->
+<section class="py-section-gap overflow-hidden bg-background" id="screenshots" aria-label="Screenshots">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">
+    <div class="text-center mb-20">
+      <h2 class="font-display-lg text-headline-md text-on-surface">Designed for the Floor</h2>
+      <p class="text-body-lg text-on-surface-variant">Interfaces optimized for speed and usability.</p>
+    </div>
+    <div class="flex gap-8 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar" role="list" aria-label="App screenshot carousel">
+      <div class="flex-none w-[300px] snap-center reveal" role="listitem">
+        <div class="screenshot-card">
+          <div class="phone-frame aspect-[9/19.5] bg-surface-container-lowest">
+            <img alt="StockFlow dashboard showing inventory overview and real-time sync status on Android" class="w-full h-full object-cover" src="assets/images/dashboard-mockup.png" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+      <div class="flex-none w-[300px] snap-center reveal" style="transition-delay: 100ms;" role="listitem">
+        <div class="screenshot-card">
+          <div class="phone-frame aspect-[9/19.5] bg-surface-container-lowest">
+            <img alt="StockFlow barcode scanning interface for rapid inventory intake" class="w-full h-full object-cover" src="assets/images/screenshot-1.png" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+      <div class="flex-none w-[300px] snap-center reveal" style="transition-delay: 200ms;" role="listitem">
+        <div class="screenshot-card">
+          <div class="phone-frame aspect-[9/19.5] bg-surface-container-lowest">
+            <img alt="StockFlow stock list view showing high-density data with product details" class="w-full h-full object-cover" src="assets/images/screenshot-2.png" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+      <div class="flex-none w-[300px] snap-center reveal" style="transition-delay: 300ms;" role="listitem">
+        <div class="screenshot-card">
+          <div class="phone-frame aspect-[9/19.5] bg-surface-container-lowest">
+            <img alt="StockFlow admin panel with real-time KPI visualizations" class="w-full h-full object-cover" src="assets/images/dashboard-mockup.png" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-label-sm text-on-surface-variant/50 mt-4 uppercase tracking-wider">
+      Screenshots shown are from development builds. Actual UI may vary.
+    </p>
+  </div>
+</section>
+
+<!-- ==================== ROLE SPLIT ==================== -->
+<section class="py-section-gap bg-surface-container-lowest" aria-label="Role-based features">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div class="p-10 rounded-3xl bg-primary-container/10 border border-primary-container/20 reveal">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="material-symbols-outlined text-4xl text-primary" aria-hidden="true">groups</span>
+        <h2 class="font-headline-md text-2xl">For Warehouse Staff</h2>
+      </div>
+      <ul class="space-y-4">
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary mt-0.5" aria-hidden="true">check_circle</span>
+          <span class="text-body-md text-on-surface-variant">One-tap barcode scanning for ultra-fast intake.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary mt-0.5" aria-hidden="true">check_circle</span>
+          <span class="text-body-md text-on-surface-variant">Offline mode ensures work never stops during outages.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary mt-0.5" aria-hidden="true">check_circle</span>
+          <span class="text-body-md text-on-surface-variant">Simple, error-proof multi-step wizards.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="p-10 rounded-3xl bg-secondary-container/10 border border-secondary-container/20 reveal" style="transition-delay: 100ms;">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="material-symbols-outlined text-4xl text-secondary" aria-hidden="true">admin_panel_settings</span>
+        <h2 class="font-headline-md text-2xl">For Admins &amp; Owners</h2>
+      </div>
+      <ul class="space-y-4">
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary mt-0.5" aria-hidden="true">check_circle</span>
+          <span class="text-body-md text-on-surface-variant">Full audit trail for 100% loss prevention.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary mt-0.5" aria-hidden="true">check_circle</span>
+          <span class="text-body-md text-on-surface-variant">Real-time alerts for low-stock and anomalies.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary mt-0.5" aria-hidden="true">check_circle</span>
+          <span class="text-body-md text-on-surface-variant">Data-driven insights to optimize stock levels.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECURITY BADGES ==================== -->
+<section class="py-16 bg-surface-container" aria-label="Security and technology stack">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">
+    <div class="flex flex-wrap justify-center items-center gap-12 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-3xl" aria-hidden="true">terminal</span>
+        <span class="font-bold tracking-tight">Firebase Auth</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-3xl" aria-hidden="true">database</span>
+        <span class="font-bold tracking-tight">Cloud Firestore</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-3xl" aria-hidden="true">bug_report</span>
+        <span class="font-bold tracking-tight">Crashlytics</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-3xl" aria-hidden="true">encrypted</span>
+        <span class="font-bold tracking-tight">256-bit Encryption</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ SECTION ==================== -->
+<section class="py-section-gap bg-surface-container-low" id="faq" aria-label="Frequently asked questions">
+  <div class="max-w-[768px] mx-auto px-margin-mobile md:px-margin-desktop">
+    <div class="text-center mb-16">
+      <h2 class="font-display-lg text-headline-md md:text-5xl text-on-surface">Frequently Asked Questions</h2>
+      <p class="text-body-lg text-on-surface-variant mt-4">Everything you need to know about StockFlow.</p>
+    </div>
+    <div class="space-y-4">
+      <details class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden reveal">
+        <summary class="flex items-center justify-between p-6 cursor-pointer font-headline-md text-lg text-on-surface hover:bg-surface-container-low transition-colors [&::-webkit-details-marker]:hidden">
+          How do I install StockFlow on my device?
+          <span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300 group-open:rotate-180" aria-hidden="true">expand_more</span>
+        </summary>
+        <div class="px-6 pb-6 text-body-md text-on-surface-variant">
+          <ol class="list-decimal list-inside space-y-2">
+            <li>Go to <strong>Settings &gt; Security</strong> on your Android device and enable <strong>&ldquo;Install from unknown sources&rdquo;</strong> for your file manager or browser.</li>
+            <li>Download the <strong>stockflow.apk</strong> file from this page.</li>
+            <li>Open the downloaded file and follow the on-screen prompts to complete the installation.</li>
+          </ol>
+          <p class="mt-4 text-xs text-on-surface-variant/60">After installation, you can disable unknown sources again if preferred.</p>
+        </div>
+      </details>
+      <details class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden reveal" style="transition-delay: 100ms;">
+        <summary class="flex items-center justify-between p-6 cursor-pointer font-headline-md text-lg text-on-surface hover:bg-surface-container-low transition-colors [&::-webkit-details-marker]:hidden">
+          What Android versions are supported?
+          <span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300 group-open:rotate-180" aria-hidden="true">expand_more</span>
+        </summary>
+        <div class="px-6 pb-6 text-body-md text-on-surface-variant">
+          StockFlow supports <strong>Android 8.0 (Oreo) and above</strong> (minSdk 26, targetSdk 35). We recommend devices with at least 3 GB of RAM for the best experience.
+        </div>
+      </details>
+      <details class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden reveal" style="transition-delay: 200ms;">
+        <summary class="flex items-center justify-between p-6 cursor-pointer font-headline-md text-lg text-on-surface hover:bg-surface-container-low transition-colors [&::-webkit-details-marker]:hidden">
+          How is my inventory data secured?
+          <span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300 group-open:rotate-180" aria-hidden="true">expand_more</span>
+        </summary>
+        <div class="px-6 pb-6 text-body-md text-on-surface-variant">
+          All data is encrypted with <strong>AES-256</strong> at rest and in transit. We use <strong>Firebase Authentication</strong> for secure access control and <strong>Cloud Firestore</strong> for reliable real-time syncing. Every action is recorded in an immutable audit trail.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop" aria-label="Final call to action">
+  <div class="max-w-[1280px] mx-auto rounded-[48px] bg-gradient-to-br from-[#006d31] via-[#2cb35b] to-[#7dfc9a] animate-gradient p-12 md:p-24 text-center text-on-primary relative overflow-hidden reveal">
+    <div class="warehouse-grid absolute inset-0 opacity-10" aria-hidden="true"></div>
+    <div class="relative z-10 space-y-8">
+      <h2 class="font-display-lg text-display-lg-mobile md:text-5xl max-w-3xl mx-auto">Get StockFlow on your warehouse floor today</h2>
+      <p class="text-body-lg text-white/80 max-w-xl mx-auto">Join the 1,500+ warehouses optimized by real-time clarity and unbreakable workflows.</p>
+      <div class="flex flex-col items-center justify-center pt-4 gap-4">
+        <a class="bg-white text-primary px-10 py-6 rounded-full font-label-sm text-label-sm uppercase tracking-widest hover:bg-primary-fixed transition-all shadow-2xl shadow-black/20 flex items-center gap-3 active:scale-95 group focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2" href="downloads/stockflow.apk" download>
+          <span class="material-symbols-outlined group-hover:scale-110 transition-transform" aria-hidden="true">android</span>
+          Download for Android
+        </a>
+        <div class="flex flex-col items-center gap-2">
+          <div class="text-label-sm text-white/70 uppercase tracking-wider">
+            v1.0.0 &bull; ~18 MB &bull; Android 8.0+
+          </div>
+          <p class="text-xs text-white/50 max-w-xs">
+            Direct APK download. You may need to allow installs from unknown sources in your device settings.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/30 py-20 px-margin-mobile md:px-margin-desktop">
+  <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+    <div class="space-y-6">
+      <a class="flex items-center gap-2" href="/">
+        <img alt="StockFlow Logo" class="h-12 w-auto object-contain" src="logo.png"/>
+        <span class="font-display-lg text-headline-md tracking-tighter text-on-surface">StockFlow</span>
+      </a>
+      <p class="text-on-surface-variant max-w-xs text-label-sm uppercase tracking-wider">Operational Clarity Guaranteed.</p>
+      <p class="text-label-sm text-on-surface-variant">&copy; 2026 StockFlow Systems. A product of <strong>Vassu Infotech</strong>.</p>
+    </div>
+    <nav class="grid grid-cols-2 md:grid-cols-3 gap-12" aria-label="Footer navigation">
+      <div class="space-y-4">
+        <h3 class="font-bold text-sm uppercase tracking-widest text-on-surface">Product</h3>
+        <ul class="space-y-2 text-on-surface-variant font-label-sm text-label-sm">
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="#features">Features</a></li>
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">Security</a></li>
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">API</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <h3 class="font-bold text-sm uppercase tracking-widest text-on-surface">Company</h3>
+        <ul class="space-y-2 text-on-surface-variant font-label-sm text-label-sm">
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">About</a></li>
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">Careers</a></li>
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">Support</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <h3 class="font-bold text-sm uppercase tracking-widest text-on-surface">Legal</h3>
+        <ul class="space-y-2 text-on-surface-variant font-label-sm text-label-sm">
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">Privacy</a></li>
+          <li><a class="hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded" href="/#">Terms</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script src="js/main.js"></script>
+</body>
+</html>

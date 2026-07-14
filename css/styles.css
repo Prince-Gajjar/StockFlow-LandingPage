@@ -1,0 +1,184 @@
+/* ============================================================
+   StockFlow Landing Page — Custom Styles
+   Design System: Operational Clarity
+   ============================================================ */
+
+/* ---------- Scroll-Reveal Animation ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Floating Animation (Hero Phone) ---------- */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-20px) rotate(1deg); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ---------- Gradient Background Animation (CTA) ---------- */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease infinite;
+}
+
+/* ---------- Glassmorphism Utility ---------- */
+.glass {
+  background: rgba(244, 252, 240, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ---------- Warehouse Grid Pattern ---------- */
+.warehouse-grid {
+  background-image: linear-gradient(#707971 0.5px, transparent 0.5px),
+    linear-gradient(90deg, #707971 0.5px, transparent 0.5px);
+  background-size: 40px 40px;
+  opacity: 0.05;
+}
+
+/* ---------- Phone Frame ---------- */
+.phone-frame {
+  border: 12px solid #161d17;
+  border-radius: 48px;
+  box-shadow: 0px 50px 100px -20px rgba(0, 33, 12, 0.3);
+  overflow: hidden;
+  background: #161d17;
+  position: relative;
+}
+
+/* ---------- Screenshot Card 3D Tilt ---------- */
+.screenshot-card {
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+}
+.screenshot-card:hover {
+  transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) scale(1.02);
+}
+
+/* ---------- Feature Card Hover ---------- */
+.feature-card {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 20px 40px rgba(0, 33, 12, 0.08);
+}
+
+/* ---------- Hide Scrollbar (Carousel) ---------- */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---------- Focus Visible for Accessibility ---------- */
+:focus-visible {
+  outline: 2px solid #006d31;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Mobile Menu Animation ---------- */
+#mobile-menu.open {
+  transform: translateX(0);
+}
+#menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Smooth Scroll (fallback for older browsers) ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-float {
+    animation: none !important;
+  }
+  .animate-gradient {
+    animation: none !important;
+  }
+  .animate-ping {
+    animation: none !important;
+  }
+  .screenshot-card {
+    transition: none !important;
+  }
+  .screenshot-card:hover {
+    transform: none !important;
+  }
+  .feature-card {
+    transition: none !important;
+  }
+  .feature-card:hover {
+    transform: none !important;
+  }
+  #timeline-path {
+    transition: none !important;
+  }
+  #mobile-menu,
+  #menu-overlay {
+    transition: none !important;
+  }
+}
+
+/* ---------- Accessibility: Reduced Transparency ---------- */
+@media screen and (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: rgba(244, 252, 240, 0.95);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ---------- Selection Styling ---------- */
+::selection {
+  background-color: #006d31;
+  color: #ffffff;
+}
+
+/* ---------- Details/Summary FAQ Chevron Fix ---------- */
+details summary::-webkit-details-marker {
+  display: none;
+}
+details summary {
+  list-style: none;
+}
+
+/* ---------- Responsive Typography Tweaks ---------- */
+@media (max-width: 374px) {
+  .text-display-lg-mobile {
+    font-size: 32px !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .text-display-lg {
+    font-size: 72px !important;
+  }
+}
