@@ -47,7 +47,7 @@
   function handleNavScroll() {
     if (!nav || !navContainer) return;
     if (window.scrollY > 80) {
-      navContainer.classList.add("glass", "shadow-xl", "px-10");
+      navContainer.classList.add("clay", "shadow-xl", "px-10");
       navContainer.classList.remove("bg-transparent");
       nav.classList.add("py-2");
     } else {
@@ -58,6 +58,46 @@
   }
 
   window.addEventListener("scroll", handleNavScroll, { passive: true });
+
+  // ---------- 2b. Hero Title Scroll Fade ----------
+  const heroTitleContainer = document.getElementById("hero-title-container");
+  
+  function handleHeroTitleScroll() {
+    if (!heroTitleContainer) return;
+    
+    // Calculate progress based on scroll. 60vh = fully faded
+    const scrollY = window.scrollY;
+    const viewHeight = window.innerHeight;
+    
+    // progress is 0 at top, 1 at 60vh down
+    let progress = scrollY / (viewHeight * 0.6);
+    progress = Math.max(0, Math.min(progress, 1));
+    
+    const opacity = 1 - progress;
+    // Scale from 1 to 0.85
+    const scale = 1 - (progress * 0.15);
+    // Translate Y from -50% to -50% - 60px (moving it up slightly as it shrinks)
+    const translateYOffset = -(progress * 60);
+    
+    heroTitleContainer.style.opacity = opacity.toFixed(3);
+    heroTitleContainer.style.transform = `translate(-50%, calc(-50% + ${translateYOffset}px)) scale(${scale.toFixed(3)})`;
+    
+    if (opacity <= 0) {
+      heroTitleContainer.style.pointerEvents = "none";
+      heroTitleContainer.setAttribute("aria-hidden", "true");
+    } else {
+      heroTitleContainer.style.pointerEvents = "none";
+      heroTitleContainer.removeAttribute("aria-hidden");
+    }
+  }
+
+  // Handle hero title via scroll (could also use requestAnimationFrame block if performance issues arise)
+  window.addEventListener("scroll", () => {
+    requestAnimationFrame(handleHeroTitleScroll);
+  }, { passive: true });
+  
+  // Init
+  handleHeroTitleScroll();
 
   // ---------- 3. Animated Counters ----------
   const counterElements = document.querySelectorAll(".counter");
@@ -221,10 +261,101 @@
     });
   });
 
-  // ---------- 8. Log that JS is loaded ----------
+  // ---------- 8. Hero Section 3D Carousel ----------
+  const carouselContainer = document.getElementById("hero-3d-carousel");
+  if (carouselContainer) {
+    const items = Array.from(carouselContainer.querySelectorAll('.carousel-item'));
+    let slideInterval;
+    
+    function rotateCarousel() {
+      const classes = items.map(el => {
+        if(el.classList.contains('active')) return 'active';
+        if(el.classList.contains('next')) return 'next';
+        if(el.classList.contains('prev')) return 'prev';
+        return 'hidden';
+      });
+      
+      const lastClass = classes.pop();
+      classes.unshift(lastClass);
+      
+      items.forEach((el, i) => {
+        el.className = `carousel-item absolute top-0 left-1/2 w-[240px] md:w-[320px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${classes[i]}`;
+      });
+    }
+
+    function rotateCarouselReverse() {
+      const classes = items.map(el => {
+        if(el.classList.contains('active')) return 'active';
+        if(el.classList.contains('next')) return 'next';
+        if(el.classList.contains('prev')) return 'prev';
+        return 'hidden';
+      });
+      
+      const firstClass = classes.shift();
+      classes.push(firstClass);
+      
+      items.forEach((el, i) => {
+        el.className = `carousel-item absolute top-0 left-1/2 w-[240px] md:w-[320px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${classes[i]}`;
+      });
+    }
+
+    // Auto rotate every 5 seconds
+    function startSlideshow() {
+      slideInterval = setInterval(rotateCarousel, 5000);
+    }
+    
+    function resetSlideshow() {
+      clearInterval(slideInterval);
+      startSlideshow();
+    }
+
+    startSlideshow();
+
+    // User can click to rotate
+    carouselContainer.addEventListener("click", (e) => {
+      const item = e.target.closest('.carousel-item');
+      if (!item) return;
+      
+      if (item.classList.contains('next')) {
+        rotateCarousel();
+        resetSlideshow();
+      } else if (item.classList.contains('prev')) {
+        rotateCarouselReverse();
+        resetSlideshow();
+      }
+    });
+  }
+
+  // ---------- 9. Screenshot Carousel Auto-Scroll ----------
+  const carousel = document.getElementById("screenshot-carousel");
+  if (carousel && !prefersReducedMotion) {
+    let scrollInterval;
+    const startCarousel = () => {
+      scrollInterval = setInterval(() => {
+        const itemWidth = 332; // 300px width + 32px gap
+        
+        // Check if we reached the end
+        if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+          carousel.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          carousel.scrollBy({ left: itemWidth, behavior: "smooth" });
+        }
+      }, 3000);
+    };
+    
+    startCarousel();
+
+    // Pause on hover/interaction
+    carousel.addEventListener("mouseenter", () => clearInterval(scrollInterval));
+    carousel.addEventListener("mouseleave", startCarousel);
+    carousel.addEventListener("touchstart", () => clearInterval(scrollInterval), { passive: true });
+    carousel.addEventListener("touchend", startCarousel, { passive: true });
+  }
+
+  // ---------- 10. Log that JS is loaded ----------
   console.log(
     "%c StockFlow %c Landing page loaded",
-    "background:#006d31;color:white;padding:4px 8px;border-radius:4px 0 0 4px;font-weight:bold",
-    "background:#2cb35b;color:white;padding:4px 8px;border-radius:0 4px 4px 0"
+    "background:#2563EB;color:white;padding:4px 8px;border-radius:4px 0 0 4px;font-weight:bold",
+    "background:#06D6A0;color:#0A1628;padding:4px 8px;border-radius:0 4px 4px 0;font-weight:bold"
   );
 })();

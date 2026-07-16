@@ -1,6 +1,6 @@
 /* ============================================================
    StockFlow Landing Page — Custom Styles
-   Design System: Operational Clarity
+   Design System: Dark Navy / Blue / Cyan — derived from logo
    ============================================================ */
 
 /* ---------- Scroll-Reveal Animation ---------- */
@@ -34,29 +34,45 @@
   animation: gradientMove 8s ease infinite;
 }
 
-/* ---------- Glassmorphism Utility ---------- */
-.glass {
-  background: rgba(244, 252, 240, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* ---------- Claymorphism Component System ---------- */
+.clay {
+  background: var(--clay-surface, #16233A);
+  border-radius: 28px;
+  box-shadow:
+    8px 8px 16px var(--clay-surface-dark, #0B1220),
+    -8px -8px 16px var(--clay-surface-light, #1F2F4A);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.clay:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    10px 10px 20px var(--clay-surface-dark, #0B1220),
+    -10px -10px 20px var(--clay-surface-light, #1F2F4A);
+}
+.clay-pressed {
+  box-shadow:
+    inset 6px 6px 12px var(--clay-surface-dark, #0B1220),
+    inset -6px -6px 12px var(--clay-surface-light, #1F2F4A);
+}
+.clay-icon {
+  border-radius: 20px;
+  background: var(--clay-surface, #16233A);
+  box-shadow:
+    5px 5px 10px var(--clay-surface-dark, #0B1220),
+    -5px -5px 10px var(--clay-surface-light, #1F2F4A);
 }
 
-/* ---------- Warehouse Grid Pattern ---------- */
-.warehouse-grid {
-  background-image: linear-gradient(#707971 0.5px, transparent 0.5px),
-    linear-gradient(90deg, #707971 0.5px, transparent 0.5px);
-  background-size: 40px 40px;
-  opacity: 0.05;
-}
-
-/* ---------- Phone Frame ---------- */
+/* ---------- Phone Frame (Dark Clay) ---------- */
 .phone-frame {
-  border: 12px solid #161d17;
+  border: 3px solid #06D6A0;
   border-radius: 48px;
-  box-shadow: 0px 50px 100px -20px rgba(0, 33, 12, 0.3);
+  box-shadow:
+    10px 10px 20px #0B1220,
+    -10px -10px 20px #1F2F4A;
   overflow: hidden;
-  background: #161d17;
+  background: #16233A;
   position: relative;
+  cursor: pointer;
 }
 
 /* ---------- Screenshot Card 3D Tilt ---------- */
@@ -65,17 +81,8 @@
   transform-style: preserve-3d;
 }
 .screenshot-card:hover {
-  transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) scale(1.02);
-}
-
-/* ---------- Feature Card Hover ---------- */
-.feature-card {
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0px 20px 40px rgba(0, 33, 12, 0.08);
+  /* Reduced tilt for a heavier physical feel */
+  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.01);
 }
 
 /* ---------- Hide Scrollbar (Carousel) ---------- */
@@ -89,7 +96,7 @@
 
 /* ---------- Focus Visible for Accessibility ---------- */
 :focus-visible {
-  outline: 2px solid #006d31;
+  outline: 2px solid #06D6A0;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -103,7 +110,7 @@
   pointer-events: auto;
 }
 
-/* ---------- Smooth Scroll (fallback for older browsers) ---------- */
+/* ---------- Smooth Scroll ---------- */
 html {
   scroll-behavior: smooth;
 }
@@ -132,12 +139,6 @@ html {
   .screenshot-card:hover {
     transform: none !important;
   }
-  .feature-card {
-    transition: none !important;
-  }
-  .feature-card:hover {
-    transform: none !important;
-  }
   #timeline-path {
     transition: none !important;
   }
@@ -147,18 +148,11 @@ html {
   }
 }
 
-/* ---------- Accessibility: Reduced Transparency ---------- */
-@media screen and (prefers-reduced-transparency: reduce) {
-  .glass {
-    background: rgba(244, 252, 240, 0.95);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-}
+
 
 /* ---------- Selection Styling ---------- */
 ::selection {
-  background-color: #006d31;
+  background-color: #2563EB;
   color: #ffffff;
 }
 
@@ -180,5 +174,41 @@ details summary {
 @media (min-width: 1440px) {
   .text-display-lg {
     font-size: 72px !important;
+  }
+}
+/* ---------- 3D Hero Carousel ---------- */
+.carousel-item {
+  transform-style: preserve-3d;
+}
+.carousel-item.active {
+  transform: translateX(-50%) translateZ(0) scale(1);
+  opacity: 1;
+  z-index: 10;
+  cursor: default;
+}
+.carousel-item.next {
+  transform: translateX(calc(-50% + 140px)) translateZ(-100px) scale(0.8) rotateY(-15deg);
+  opacity: 0.6;
+  z-index: 5;
+  cursor: pointer;
+}
+.carousel-item.prev {
+  transform: translateX(calc(-50% - 140px)) translateZ(-100px) scale(0.8) rotateY(15deg);
+  opacity: 0.6;
+  z-index: 5;
+  cursor: pointer;
+}
+.carousel-item.hidden {
+  transform: translateX(-50%) translateZ(-300px) scale(0.6);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .carousel-item.next {
+    transform: translateX(calc(-50% + 80px)) translateZ(-100px) scale(0.8) rotateY(-15deg);
+  }
+  .carousel-item.prev {
+    transform: translateX(calc(-50% - 80px)) translateZ(-100px) scale(0.8) rotateY(15deg);
   }
 }
