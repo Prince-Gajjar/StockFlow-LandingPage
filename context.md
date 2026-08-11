@@ -1,80 +1,66 @@
-# StockFlow Landing Page - Project & UI Context
+# StockFlow Landing Page - Project & UI Context (Bright Liquid Glass Edition)
 
-This file serves as a comprehensive reference for AI agents or developers working on the StockFlow Landing Page, specifically focusing on UI tokens, design system definitions, and component architecture to facilitate future UI redesigns.
+This file serves as the living technical reference for AI agents and developers working on the StockFlow Landing Page, documenting the current codebase structure, feature list, architecture overview, and **Bright Liquid Glass Design System**.
 
-## 1. Overview
-This is a static landing page for **StockFlow**, an Android inventory management app.
-- **Tech Stack**: HTML5, Vanilla CSS, Vanilla JavaScript, Tailwind CSS (via CDN with custom configuration plugin).
-- **Core Identity**: Dark, premium, technical aesthetic derived from the StockFlow logo. The palette consists of very deep navy backgrounds, royal blue primaries, and cyan/teal accents.
+---
 
-## 2. Design System (Tailwind Configuration)
+## 1. Overview & Architecture
+Static marketing and APK download landing page for **StockFlow**, an Android inventory management app by **Vassu Infotech**.
+- **Tech Stack**: HTML5, Vanilla CSS3 (Bright Liquid Glass System), Vanilla JavaScript (ES6+), Tailwind CSS (via CDN).
+- **Theme Identity**: Luminous pearl-white background (`#F8FAFC`), translucent crystal glass cards, specular highlights, and vibrant brand accents (Royal Blue `#2563EB` & Deep Teal `#0D9488`).
+- **Compliance Status**: Compliant with `RULES.md` (Implementation Planning, Accessibility/Contrast, `Context.md` & `Changelog.md` maintenance).
 
-The following custom color tokens and typography settings are injected into the Tailwind CDN config. Future UI modifications should strictly utilize these semantic tokens rather than arbitrary hex codes.
+---
 
-### Color Palette
-**Navy Base Surfaces (Backgrounds & Containers)**
-- `navy-deepest` (`#0A1628`): Used for the main body background, footer, and deep sections (e.g., hero, carousel container).
-- `navy-base` (`#0D1B2E`): Used for alternating section backgrounds (e.g., trust strip, timeline, for users).
-- `navy-surface` (`#0F1D32`): Used for standard cards, FAQ accordions, mobile menu.
-- `navy-elevated` (`#152238`): Used for elevated/hover states of cards.
-- `navy-border` (`#1E3050`): Used for all borders and dividers.
-- `navy-light` (`#243B55`): Used for subtle highlights.
+## 2. File & Directory Structure
+```
+StockFlow-LandingPage/
+├── index.html              # Main single-page application (Bright Liquid theme)
+├── RULES.md                # Agent operating rules & governance standards
+├── context.md              # Living architecture & UI reference (This document)
+├── Changelog.md            # Timestamped log of changes (Rules Section 8.1)
+├── README.md               # Quick-start guide & deployment instructions
+├── css/
+│   └── styles.css          # Bright Liquid Glass system, crystal cards, specularity
+├── js/
+│   └── main.js             # Cursor light tracking, scroll reveal, hero slideshow, counters
+├── assets/
+│   └── images/             # App screenshots (1.png - 7.png) and logo.png
+└── downloads/
+    └── stockflow.apk       # Target destination for the release APK binary
+```
 
-**Brand Colors (Primary & Accents)**
-- `blue-primary` (`#2563EB`): The main brand color (derived from the 3D cube in the logo).
-- `blue-light` (`#3B82F6`): Used for hover states and gradients.
-- `cyan-accent` (`#06D6A0`): The energetic accent color (derived from the flow arrow in the logo) used for CTAs, checkmarks, and focus outlines.
-- `cyan-light` (`#34E8B8`): Used for hover states on CTA buttons.
+---
 
-**Typography Colors**
-- `text-primary` (`#F0F4F8`): Main headings and prominent text.
-- `text-secondary` (`#8899A6`): Body paragraphs, subheadings, list items.
-- `text-tertiary` (`#556677`): Meta information, version numbers, small print.
+## 3. Bright Liquid Glass Design Tokens (`styles.css`)
 
-### Typography (Font: Inter)
-- `display-lg`: 64px, bold, tight tracking (Hero headers).
-- `headline-md`: 32px, bold, tight tracking (Section headers).
-- `body-lg`: 18px, medium, relaxed line-height (Subtitles).
-- `body-md`: 16px, medium (Standard body text).
-- `label-sm`: 12px, semi-bold, uppercase, wide tracking (Tags, nav links, buttons).
+### Surface & Typography Tokens
+- `--glass-surface-base`: `rgba(255, 255, 255, 0.75)` — Base section overlays.
+- `--glass-surface-card`: `rgba(255, 255, 255, 0.85)` — Default translucent crystal glass cards.
+- `--glass-surface-hover`: `rgba(255, 255, 255, 0.95)` — Elevated glass hover state.
+- `--glass-border-light`: `rgba(226, 232, 240, 0.8)` — Soft slate rim outline.
+- `--liquid-teal`: `#0D9488` — High-visibility secondary accent & badge color.
+- `--liquid-blue`: `#2563EB` — Primary brand color derived from the StockFlow 3D cube logo.
+- `--text-primary`: `#0F172A` (Slate 900) — Headings & prominent text.
+- `--text-secondary`: `#334155` (Slate 700) — Body text & list items.
+- `--text-muted`: `#64748B` (Slate 500) — Subtext & metadata.
 
-## 3. Custom CSS Components (`styles.css`)
+### Component Classes
+1. `.liquid-glass`: Translucent crystal glass card featuring `backdrop-filter: blur(24px) saturate(180%)`, inset white specular top highlights, and 24px rounded corners.
+2. `.liquid-glass-hover`: Interactive glass card elevating by `-6px` on hover with dynamic cursor radial refraction overlay (`--mouse-x`, `--mouse-y`).
+3. `.liquid-btn-primary`: Royal Blue to Deep Teal gradient button with white bold text, inner light sheen, and press physics.
+4. `.liquid-btn-secondary`: Frosted crystal button with slate border and blue hover glow.
+5. `.liquid-phone-frame`: Glossy silver phone casing with crystal rim lighting and float animation (`.animate-float-slow`).
+6. `.text-liquid-shimmer`: Animated linear gradient text mask sweeping across main hero titles.
 
-Beyond Tailwind utilities, several complex custom CSS classes govern the UI's look and feel. 
+---
 
-### Structural & Visual Components
-- `.phone-frame`: A custom container used to display screenshots. It features a `3px solid #06D6A0` border, a `48px` border-radius, and deep shadows. It specifically targets Android phone aspect ratios (`aspect-[9/19.5]`).
-- `.glass`: A dark glassmorphism effect using `rgba(15, 29, 50, 0.75)` with a 16px backdrop blur and increased saturation. Used on sticky navbars and floating notification popups.
-- `.warehouse-grid`: A subtle background pattern using intersecting `blue-primary` linear gradients at 0.4 opacity on a 40px grid size.
-- `.feature-card` / `.screenshot-card`: Classes applying cubic-bezier transitions for hover lift and 3D tilt effects.
-
-### Glows & Effects
-- `.glow-blue` / `.glow-cyan`: Multi-layered box-shadows that create a diffused neon glow.
-- `.pulse-glow`: An infinite CSS keyframe animation causing the box-shadow to throb (applied to primary CTA buttons).
-- `.text-shimmer`: A scrolling linear-gradient background masked to text, creating a shimmering highlight effect on the word "warehouse" in the hero.
-- `.gradient-border`: An advanced CSS trick using masks and `::before` pseudo-elements to create a 1px border gradient (from blue to cyan) around navy cards.
-
-### Animations
-- `.reveal` / `.reveal.active`: An IntersectionObserver-driven scroll reveal pattern. Elements slide up 30px and fade in.
-- `.animate-float`: A slow, infinite translateY and rotate keyframe animation used on the hero section phone mockup.
-
-## 4. UI Architecture & Sections
-
-If you need to redesign or add sections, adhere to the established DOM structures:
-
-1. **Section Containers**: Built with `<section class="py-section-gap">` and inner `<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">`.
-2. **Hero Section**: Contains floating, blurred glow orbs (`w-[500px] h-[500px] bg-blue-primary/15 rounded-full blur-[150px]`) behind the text for atmospheric lighting. Includes an interactive image slideshow (images 1-7).
-3. **Bento Grid (Features)**: Utilizes CSS Grid (`grid-cols-1 md:grid-cols-3 gap-6`). Cards alternate between solid gradient backgrounds (blue to cyan) and bordered navy surfaces.
-4. **Timeline**: Uses an absolute-positioned SVG path that connects numbered circles.
-5. **Screenshot Carousel**: An auto-scrolling flex container (`overflow-x-auto snap-x`) displaying multiple `.screenshot-card` components.
-6. **FAQ Accordions**: Uses semantic HTML `<details>` and `<summary>` tags styled via Tailwind group hover and marker hiding.
-
-## 5. JavaScript Logic (`main.js`)
-UI behaviors driven by JavaScript:
-- **Scroll Reveal**: Adds `.active` class to `.reveal` elements when they enter the viewport.
-- **Sticky Nav**: Adds `.glass` and padding changes to the navbar when scrolled past 80px.
-- **Animated Counters**: Eases numbers up to their `data-target` value when scrolled into view.
-- **SVG Timeline**: Adjusts `strokeDashoffset` on scroll to "draw" a line down the page.
-- **Mobile Menu**: Toggles transform classes and manages an overlay backdrop.
-- **3D Tilt**: Tracks mouse movement over `.screenshot-card` to rotate the card on X and Y axes.
-- **Slideshow & Carousel**: The hero image (`#hero-slideshow`) rotates `assets/images/1.png` through `7.png` every 5 seconds. The screenshot carousel (`#screenshot-carousel`) auto-scrolls horizontally every 3 seconds.
+## 4. Implemented Feature List
+- [x] **Bright Glass Navigation Bar**: Sticky header with logo badge, desktop links, and quick APK download CTA.
+- [x] **Hero Showcase**: High-contrast headline, dual pill buttons, and phone mockup displaying auto-rotating screenshots (`#hero-slideshow`).
+- [x] **Live Metrics Strip**: Eased numeric count-up statistics (*99.9% Audit Accuracy*, *< 2s Scan Latency*, *100% Offline SQLite*, *0 Data Loss*).
+- [x] **Bento Feature Grid**: Translucent crystal cards showcasing Real-Time Sync, Barcode Engine, Offline SQLite, Audit Trails, and Multi-Warehouse Bin Mapping.
+- [x] **4-Step Workflow Timeline**: Step-by-step process cards.
+- [x] **Screenshot Carousel**: Horizontal scroll snap track with manual navigation controls.
+- [x] **Glass FAQ Accordions**: Expanding `<details>` cards with smooth transitions.
+- [x] **Download CTA Banner & Footer**: Full-width glass banner with download trigger and copyright details.

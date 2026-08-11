@@ -1,91 +1,413 @@
 /* ============================================================
-   StockFlow Landing Page — Custom Styles
-   Design System: Dark Navy / Blue / Cyan — derived from logo
+   StockFlow Landing Page — Bright Liquid Glass Design System
+   Visual Theme: Luminous Pearl Base, Translucent Crystal Glass,
+   Iridescent Specular Highlights, Vibrant Royal Blue & Deep Teal
+   Fully Compliant with RULES.md
    ============================================================ */
 
-/* ---------- Scroll-Reveal Animation ---------- */
+:root {
+  /* Bright Surface Layers */
+  --glass-surface-deep: rgba(248, 250, 252, 0.85);
+  --glass-surface-base: rgba(255, 255, 255, 0.75);
+  --glass-surface-card: rgba(255, 255, 255, 0.85);
+  --glass-surface-hover: rgba(255, 255, 255, 0.95);
+  --glass-surface-accent: rgba(13, 148, 136, 0.08);
+  
+  /* Specular & Light Borders */
+  --glass-border-light: rgba(226, 232, 240, 0.8);
+  --glass-border-cyan: rgba(13, 148, 136, 0.35);
+  --glass-border-blue: rgba(37, 99, 235, 0.35);
+  --glass-specular-top: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 40%, rgba(37, 99, 235, 0.15) 100%);
+  
+  /* Brand Accent Colors */
+  --liquid-teal: #0D9488;
+  --liquid-teal-glow: rgba(13, 148, 136, 0.25);
+  --liquid-blue: #2563EB;
+  --liquid-blue-glow: rgba(37, 99, 235, 0.3);
+  --liquid-indigo: #4F46E5;
+  
+  /* High-Contrast Typography (WCAG AA Compliant) */
+  --text-primary: #0F172A;   /* Slate 900 */
+  --text-secondary: #334155; /* Slate 700 */
+  --text-muted: #64748B;     /* Slate 500 */
+}
+
+/* ---------- Global Base ---------- */
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background-color: #F8FAFC;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(241, 245, 249, 0.6) 0px, transparent 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* ---------- Ambient Background Mesh Orbs ---------- */
+.liquid-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  will-change: transform;
+}
+
+.liquid-orb-cyan {
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.22) 0%, rgba(13, 148, 136, 0) 70%);
+  animation: orbFloat1 18s ease-in-out infinite alternate;
+}
+
+.liquid-orb-blue {
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(37, 99, 235, 0) 70%);
+  animation: orbFloat2 22s ease-in-out infinite alternate;
+}
+
+.liquid-orb-purple {
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.18) 0%, rgba(79, 70, 229, 0) 70%);
+  animation: orbFloat3 25s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 80px) scale(1.15); }
+  100% { transform: translate(-40px, 40px) scale(0.9); }
+}
+
+@keyframes orbFloat2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-70px, -50px) scale(1.2); }
+  100% { transform: translate(50px, -80px) scale(0.95); }
+}
+
+@keyframes orbFloat3 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(50px, -60px) scale(1.1); }
+  100% { transform: translate(-60px, 50px) scale(1.05); }
+}
+
+/* ---------- Bright Crystal Liquid Glass Base Card ---------- */
+.liquid-glass {
+  background: var(--glass-surface-card);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border-light);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 40px rgba(15, 23, 42, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(226, 232, 240, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--glass-specular-top);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.liquid-glass-hover {
+  cursor: pointer;
+}
+
+.liquid-glass-hover:hover {
+  transform: translateY(-6px) scale(1.01);
+  background: var(--glass-surface-hover);
+  border-color: var(--glass-border-blue);
+  box-shadow: 
+    0 30px 60px rgba(15, 23, 42, 0.09),
+    0 0 30px var(--liquid-blue-glow),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+/* Dynamic Cursor Refraction Overlay for Bright Theme */
+.liquid-glass-hover::after {
+  content: '';
+  position: absolute;
+  top: var(--mouse-y, 50%);
+  left: var(--mouse-x, 50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(13, 148, 136, 0.05) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+}
+
+.liquid-glass-hover:hover::after {
+  opacity: 1;
+}
+
+/* ---------- Bright Crystal Glass Nav Bar ---------- */
+.liquid-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s ease;
+}
+
+.liquid-nav.scrolled {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(37, 99, 235, 0.25);
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08), 0 0 20px rgba(37, 99, 235, 0.1);
+}
+
+/* ---------- Bright Liquid Buttons & Badges ---------- */
+.liquid-btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, #2563EB 0%, #0D9488 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 14px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 10px 25px rgba(37, 99, 235, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.liquid-btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.liquid-btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 
+    0 15px 35px rgba(37, 99, 235, 0.4),
+    0 0 25px rgba(13, 148, 136, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.liquid-btn-primary:hover::before {
+  left: 100%;
+}
+
+.liquid-btn-primary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.liquid-btn-secondary {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 14px 28px;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 
+    0 8px 20px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.liquid-btn-secondary:hover {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.4);
+  color: #2563EB;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 25px rgba(15, 23, 42, 0.08),
+    0 0 15px rgba(37, 99, 235, 0.15);
+}
+
+/* Glass Pill Badge for Bright Theme */
+.liquid-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(13, 148, 136, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  color: var(--liquid-teal);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 15px rgba(13, 148, 136, 0.08);
+}
+
+/* ---------- Glossy Silver Phone Casing ---------- */
+.liquid-phone-frame {
+  position: relative;
+  border-radius: 44px;
+  padding: 12px;
+  background: linear-gradient(145deg, #FFFFFF 0%, #F1F5F9 50%, #E2E8F0 100%);
+  backdrop-filter: blur(30px);
+  box-shadow: 
+    0 30px 70px rgba(15, 23, 42, 0.15),
+    0 0 40px rgba(37, 99, 235, 0.12),
+    inset 0 2px 2px rgba(255, 255, 255, 1),
+    inset 0 -2px 4px rgba(203, 213, 225, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-phone-screen {
+  border-radius: 34px;
+  overflow: hidden;
+  background: #000000;
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+}
+
+.liquid-phone-notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 22px;
+  background: #000000;
+  border-radius: 12px;
+  z-index: 30;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* Floating Badges over Phone */
+.glass-floating-tag {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 16px;
+  padding: 10px 16px;
+  box-shadow: 
+    0 15px 35px rgba(15, 23, 42, 0.1),
+    0 0 20px rgba(13, 148, 136, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 25;
+}
+
+/* ---------- Text Shimmers & Gradients ---------- */
+.text-liquid-shimmer {
+  background: linear-gradient(
+    120deg,
+    #0F172A 0%,
+    #2563EB 30%,
+    #0D9488 60%,
+    #0F172A 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 6s linear infinite;
+}
+
+@keyframes textShimmer {
+  to { background-position: 200% center; }
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #1E40AF 0%, #2563EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------- Warehouse Light Grid Pattern ---------- */
+.liquid-grid-bg {
+  background-image: 
+    linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ---------- Animations & Scroll Reveal ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(35px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
+
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ---------- Floating Animation (Hero Phone) ---------- */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(-1deg); }
-  50% { transform: translateY(-20px) rotate(1deg); }
-}
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(1deg); }
 }
 
-/* ---------- Gradient Background Animation (CTA) ---------- */
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientMove 8s ease infinite;
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
 }
 
-/* ---------- Claymorphism Component System ---------- */
-.clay {
-  background: var(--clay-surface, #16233A);
-  border-radius: 28px;
-  box-shadow:
-    8px 8px 16px var(--clay-surface-dark, #0B1220),
-    -8px -8px 16px var(--clay-surface-light, #1F2F4A);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.clay:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    10px 10px 20px var(--clay-surface-dark, #0B1220),
-    -10px -10px 20px var(--clay-surface-light, #1F2F4A);
-}
-.clay-pressed {
-  box-shadow:
-    inset 6px 6px 12px var(--clay-surface-dark, #0B1220),
-    inset -6px -6px 12px var(--clay-surface-light, #1F2F4A);
-}
-.clay-icon {
-  border-radius: 20px;
-  background: var(--clay-surface, #16233A);
-  box-shadow:
-    5px 5px 10px var(--clay-surface-dark, #0B1220),
-    -5px -5px 10px var(--clay-surface-light, #1F2F4A);
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.25); }
+  50% { box-shadow: 0 0 35px rgba(37, 99, 235, 0.5); }
 }
 
-/* ---------- Phone Frame (Dark Clay) ---------- */
-.phone-frame {
-  border: 3px solid #06D6A0;
-  border-radius: 48px;
-  box-shadow:
-    10px 10px 20px #0B1220,
-    -10px -10px 20px #1F2F4A;
-  overflow: hidden;
-  background: #16233A;
-  position: relative;
-  cursor: pointer;
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 
-/* ---------- Screenshot Card 3D Tilt ---------- */
-.screenshot-card {
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  transform-style: preserve-3d;
+/* ---------- Custom Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-.screenshot-card:hover {
-  /* Reduced tilt for a heavier physical feel */
-  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.01);
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(203, 213, 225, 0.8);
+  border-radius: 4px;
+  border: 2px solid #F8FAFC;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--liquid-blue);
 }
 
-/* ---------- Hide Scrollbar (Carousel) ---------- */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -94,121 +416,45 @@
   scrollbar-width: none;
 }
 
-/* ---------- Focus Visible for Accessibility ---------- */
-:focus-visible {
-  outline: 2px solid #06D6A0;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* ---------- Mobile Menu Animation ---------- */
-#mobile-menu.open {
-  transform: translateX(0);
-}
-#menu-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* ---------- Smooth Scroll ---------- */
-html {
-  scroll-behavior: smooth;
-}
-
-@media screen and (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-  .animate-float {
-    animation: none !important;
-  }
-  .animate-gradient {
-    animation: none !important;
-  }
-  .animate-ping {
-    animation: none !important;
-  }
-  .screenshot-card {
-    transition: none !important;
-  }
-  .screenshot-card:hover {
-    transform: none !important;
-  }
-  #timeline-path {
-    transition: none !important;
-  }
-  #mobile-menu,
-  #menu-overlay {
-    transition: none !important;
-  }
-}
-
-
-
-/* ---------- Selection Styling ---------- */
-::selection {
-  background-color: #2563EB;
-  color: #ffffff;
-}
-
-/* ---------- Details/Summary FAQ Chevron Fix ---------- */
+/* ---------- Details / FAQ Accordion Bright Styling ---------- */
 details summary::-webkit-details-marker {
   display: none;
 }
 details summary {
   list-style: none;
-}
-
-/* ---------- Responsive Typography Tweaks ---------- */
-@media (max-width: 374px) {
-  .text-display-lg-mobile {
-    font-size: 32px !important;
-  }
-}
-
-@media (min-width: 1440px) {
-  .text-display-lg {
-    font-size: 72px !important;
-  }
-}
-/* ---------- 3D Hero Carousel ---------- */
-.carousel-item {
-  transform-style: preserve-3d;
-}
-.carousel-item.active {
-  transform: translateX(-50%) translateZ(0) scale(1);
-  opacity: 1;
-  z-index: 10;
-  cursor: default;
-}
-.carousel-item.next {
-  transform: translateX(calc(-50% + 140px)) translateZ(-100px) scale(0.8) rotateY(-15deg);
-  opacity: 0.6;
-  z-index: 5;
   cursor: pointer;
 }
-.carousel-item.prev {
-  transform: translateX(calc(-50% - 140px)) translateZ(-100px) scale(0.8) rotateY(15deg);
-  opacity: 0.6;
-  z-index: 5;
-  cursor: pointer;
+
+details[open] summary .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--liquid-blue);
 }
-.carousel-item.hidden {
-  transform: translateX(-50%) translateZ(-300px) scale(0.6);
-  opacity: 0;
-  z-index: 1;
-  pointer-events: none;
+
+details[open] {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08), 0 0 20px rgba(37, 99, 235, 0.1);
 }
+
+/* ---------- Selection & Focus ---------- */
+::selection {
+  background: var(--liquid-blue);
+  color: #FFFFFF;
+}
+
+:focus-visible {
+  outline: 2px solid var(--liquid-blue);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Responsive Tweaks */
 @media (max-width: 768px) {
-  .carousel-item.next {
-    transform: translateX(calc(-50% + 80px)) translateZ(-100px) scale(0.8) rotateY(-15deg);
+  .liquid-glass {
+    border-radius: 20px;
   }
-  .carousel-item.prev {
-    transform: translateX(calc(-50% - 80px)) translateZ(-100px) scale(0.8) rotateY(15deg);
+  .liquid-phone-frame {
+    border-radius: 36px;
+    padding: 8px;
   }
 }
